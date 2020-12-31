@@ -28,8 +28,7 @@ coverage
 # Grunt intermediate storage (https://gruntjs.com/creating-plugins#storing-task-files)
 .grunt
 
-# Bower dependency directory (https://bower.io/)
-bower_components
+# Bower dependency directory (https://bower.io/) (deleted per instructions)
 
 # node-waf configuration
 .lock-wscript
@@ -102,3 +101,5 @@ dist
 
 # TernJS port file
 .tern-port
+
+.*
