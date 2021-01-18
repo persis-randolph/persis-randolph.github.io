@@ -105,7 +105,7 @@ function outerFunction() {
 }
 
 let copyFunct = outerFunction();
-copyFunct(); // returns 42
+console.log(copyFunct); // returns 42
 /*
  * outFunctVar is still accessible since it is contained in a closure with
  * nestedFunction
