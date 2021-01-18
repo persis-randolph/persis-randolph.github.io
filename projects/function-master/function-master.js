@@ -32,10 +32,8 @@ function keysToString(object) {
         array.push(key); // push each key into the array
     }
     
-    // create a new variable, string, which is each array value in array joined by spaces
-    let string = array.join(" "); 
-    // return the new string
-    return string;
+    // return the new array as a string, with each array key joined together by spaces
+    return array.join(' ');
 
 }
 
@@ -58,10 +56,8 @@ function valuesToString(object) {
         }
     }
     
-    // create a new variable, string, which joins the string values from the input object with a space
-    let string = array.join(" ");
-    // return new string
-    return string;
+    // join together the array's values into a string with spaces in between each value, return that string
+    return array.join(" ");
     
 }
 
@@ -162,7 +158,7 @@ function profileInfo(object) {
 
 // Should take an object with a name and a species and return '<Name> is a <Species>'
 
-    // ask jon what this is called again - basically breaking down the object into its properties so you can reference them
+    // deconstruct object, breaking down the object into its properties so you can reference them
     let {name, species} = object;
     
     // replaced by above line which is shorter
@@ -190,10 +186,13 @@ if there are no noises return 'there are no noises' */
     
     // check if the input object has a noises array
     if (object.noises) {
+        // if the object has a noises array and it isn't empty
         if (Array.isArray(object.noises) && object.noises.length > 0) {
+            // return the strings separated by spaces
             return object.noises.join(" ");
         }
     }
+    // if it doesn't meet the above condition, return "there are no noises"
     return 'there are no noises';
 
 }
@@ -205,11 +204,15 @@ if there are no noises return 'there are no noises' */
 function hasWord(string, word) {
 
 // Should take a string of words and a word and return true if <word> is in <string of words>, otherwise return false.
+    // loop through words of the input string, which are split apart by spaces
     for (let theWord of string.split(" ")) {
+        // if the word in the loop matches the iput word, i.e. if it exists in the input string
         if (theWord === word) {
+            // return true as our output
             return true;
         }
     }
+    // if the input word does not match any word in the string, return false as our output
     return false;
 
 }
@@ -224,8 +227,9 @@ function addFriend (name, object) {
     
     if (object.friends) { // if object has friends property
         object.friends.push(name); // if it does push the name into the friends array
-        return object; // return edited object
     }
+    // return edited object
+    return object;
 
 }
 
@@ -240,15 +244,21 @@ function isFriend(name, object) {
     // if (object.friends) console.log("object has friends property")
     // if (!object.friends) console.log("object doesn't have friends property")
     
+    // if object doesn't have a friends property
     if (!object.friends) {
+        // return false and exit the function
         return false;
     }
 
+    // loop through the names of friends within the input object's friends list
     for (let friendName of object.friends) {
+        // if the input name matches a name on the input object's friends list
         if (name === friendName) {
+            // return true as our output and then exit the function
             return true;
         }
     }
+    // if the above conditions has a friends property, but the name doesn't match anyone's friends lists, return false as our output
     return false;
     
     // this didn't work:
@@ -256,13 +266,13 @@ function isFriend(name, object) {
         
     //     // loop through friends array
     //     for (let friend of object.friends) {
-    //         if (friend.name === name) {
+    //         if (friend === name) {
     //             return true;
     //         }
     //     }
     //     return false;
         
-    // }
+    //}
     
 }
 
@@ -274,6 +284,22 @@ function nonFriends(name, array) {
 
 // Should take a name and a list of people, and return a list of all the names that <name> is not friends with
 
+    // solution discussed in tutoring, much more efficient
+    // declare notFriends array to be returned later
+    let notFriends = [];
+
+    // loop through array to get access to each object in the array
+
+    for (let i = 0; i < array.length; i++) {
+        // check to see if name is not the name from the object
+        // check to see if the name is not inside of the friends array
+        if (array[i].name !== name && !array[i].friends.includes(name)) {
+            // push people who do not have name inside of their friends array into the notFriends array
+            notFriends.push(array[i].name);
+        }
+    }
+    return notFriends;
+
     // loop through the list of people
     // pass each person into the function isFriend to test if each person isFriend to the named animal
     
@@ -284,31 +310,11 @@ function nonFriends(name, array) {
     //     {name: "Sara", friends: ["Jimmy"]}
     //  ];
     
-    // jon's way
-    // let friends;
-    // let allPeople;
-    
-    // for (let person of array) {
-    //     allPeople.push(person.name);
-    //     if (person.name === name) {
-    //         friends = person.friends;
-    //     }
-    // }
-    
-    // let outputArray;
-    
-    // for (let person of allPeople) {
-    //     if (!friends.includes(person)) {
-    //         outputArray.push(person);
-    //     }
-    // }
-    
-    // return outputArray;
-    
-    
-    // persis way: currently not correct
+    // persis way: currently not correct - look at this again and make it work
     // let nonFriends = [];
     
+    // for new solution attempt: try loop to use isFriend function
+    // c'era's solution included array[I].name === name || array[I].friends.includes(name)
     // for (let friendName of array) {
     //     if (!isFriend(friendName, name)) {
     //         nonFriends.push(friendName);
@@ -316,36 +322,54 @@ function nonFriends(name, array) {
     // }
     // return nonFriends;
     
-    let friends = [];
     
-    for (let person of array) {
+    // **** long solution ****
+    // declare/create an empty array of friends
+    // let friends = [];
+    
+    // // loop through the people in the input array (names you are checking if they are friends)
+    // for (let person of array) {
         
-        if (person.name === name) {
-            friends = person.friends;
-            console.log(friends); // should output input person's friends
-        }
+    //     // if the name of a person from the input array matches the input name
+    //     if (person.name === name) {
+    //         // add that person's name to the friends friends array
+    //         friends = person.friends;
+    //         // testing: should output input person's friends
+    //         console.log(friends);
+    //     }
         
-    }
+    // }
     
-    let names = [];
+    // // declare a new array of names - all people
+    // let allPeople = [];
     
-    for (let person of array) {
-        names.push(person.name);
-    }
+    // // loop through each person of the input array (names you are checking if they are friends)
+    // for (let person of array) {
+    //     // push each persons name from the array into the new names array
+    //     allPeople.push(person.name);
+    // }
     
-    console.log(names); // should be every person in the function
+    // // testing: should be every person in the function
+    // console.log(allPeople);
     
-    let returnArr = [];
+    // // declare a new empty array which will contain the names of non-friends
+    // let nonFriends = [];
     
-    for (let theName of names) {
-        if (!(friends.includes(theName) || theName === name)) {
-            returnArr.push(theName);
-        }
-    }
+    // // loop through the names array created above (all people involved in the function)
+    // for (let theName of allPeople) {
+        
+    //     // if (friends array contains the name of the person, or the name of the person matches the input name) returns false
+    //     if (!(friends.includes(theName) || theName === name)) {
+    //         // add that persons name to the non friends list (nonFriends array)
+    //         nonFriends.push(theName);
+    //     }
+    // }
     
-    console.log(returnArr);
+    // // testing: should return all people who are not the input person, and not in the input person's friends array
+    // console.log(nonFriends);
     
-    return returnArr;
+    // // return the list of people who are not the input person's friends array as output
+    // return nonFriends;
 
 
 }
@@ -359,15 +383,21 @@ function updateObject(object, key, value) {
 /* Should take an object, a key and a value. Should update the property <key> on <object>
 with new <value>. If <key> does not exist on <object> create it. */
 
-// keep in mind referencing values instead of // ?
+// keep in mind, copying by reference, not by value
 
-    let newObj = {...object}; // spread operator - look this up, takes every key value pair that exists in the object and copying to new object
+    // // create a new object, a cloned version of the input object
+    // let newObj = {...object}; // spread operator - takes every key value pair that exists in the object and copying to new object
+    // // or you could make a new object and iterate over the keys of the old object
     
-    // or you could make a new object and iterate over the keys of the old object
+    // // add the input key value pair to the object, or change the stored value if the key already exists
+    // newObj[key] = value;
     
-    newObj[key] = value;
+    // // return the new edited object as output
+    // return newObj;
     
-    return newObj;
+    // you don't need to copy the object
+    object[key] = value;
+    return object;
 
 }
 
@@ -379,10 +409,13 @@ function removeProperties(object, array) {
 
 // Should take an object and an array of strings. Should remove any properties on <object> that are listed in <array>
 
-// why does this allow us to remove data in changing an object, but not update the values
+// why does this allow us to remove data in changing an object, but not update the values - read more about this
 
+    // loop through the properties contained in the array
     for (let prop of array) {
+        // if the input object has one of the properties we are looping through
         if(object.hasOwnProperty(prop)) {
+            // delete that property
             delete object[prop];
         }
     } 
@@ -397,14 +430,19 @@ function dedup(array) {
 
 // Should take an array and return an array with all the duplicates removed
 
+    // declare a new array
     let newArray = [];
     
+    // loop through the array starting at the zero-index and stopping at the last indexed value, incrementing by 1 each time
     for (let i = 0; i < array.length; i++) {
+        // if the new array doesn't include the value at the current index
         if (!newArray.includes(array[i])) {
+            // add that value to the new array
             newArray.push(array[i]);
         }
     }
     
+    // return this new array as output
     return newArray;
 
 }

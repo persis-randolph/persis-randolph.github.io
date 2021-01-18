@@ -2,7 +2,19 @@
 // min /////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
-function min() {
+// Write a function min that takes two arguments and returns their minimum.
+
+function min(num1, num2) {
+  
+  // if the first number is greater than the second number
+  if (num1 > num2) {
+    // return the smaller (2nd) number
+    return num2
+  // if the second number is greater than or equal to the 1st number
+  } else {
+    // return the 1st number
+  	return num1;
+  }
 
 }
 
