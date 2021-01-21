@@ -39,7 +39,7 @@ Some quick notes that may come in handy:
 See Instructor for instructions.
 - defaults
 - *once*
-- memoize
+- memoize //is this memorize??
 - delay
 - shuffle
 
