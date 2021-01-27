@@ -166,21 +166,42 @@ var friendFirstLetterCount = function(customers, customer, char) {
 //*Constraints**:
 var friendsCount = function(customers, friendName) {
     
-    // reduce customers' names to a customerNames array
-    return _.reduce(customers, function (customerNames, customer) {
-        // reduce friend's of each customer to a friends names' array
-        let friendsNames = _.reduce(customer.friends, function(friendsNames, friend) {
-            // add each friend on the friends array of each customer to a bigger friends array
-            return friendsNames.concat(friend.name);
-        }, []);
-        // if the friends name array contains the input friend's name
-        if (_.contains(friendsNames, friendName)) {
-            // add that customer's name to the customerNames list
-            customerNames = customerNames.concat(customer.name);
+    // another method, each, pluck, .includes
+    // another method - filter
+    
+    // look in each customers object, then into their friends array, and then inside each friend object
+    // who has olga or whomever in their friends array?
+    let resultArr = _.filter(customers, function(customerObj) {
+        // for loop or includes
+        // lets define the friends array from each customer object
+        let customerObjFriendsArr = customerObj.friends;
+        
+        // look through each friends array and see if the customer is inside of it
+        for (let i=0; i < customerObjFriendsArr.length; i++) {
+            if (customerObjFriendsArr[i].name === friendName) {
+                return customerObj;
+            }
         }
-        // return the list of customers who have the given customer as their friend
-        return customerNames;
-    }, []);
+    });
+    
+    return _.pluck(resultArr, "name");
+    
+    
+//     // reduce customers' names to a customerNames array
+//     return _.reduce(customers, function (customerNames, customer) {
+//         // reduce friend's of each customer to a friends names' array
+//         let friendsNames = _.reduce(customer.friends, function(friendsNames, friend) {
+//             // add each friend on the friends array of each customer to a bigger friends array
+//             return friendsNames.concat(friend.name);
+//         }, []);
+//         // if the friends name array contains the input friend's name
+//         if (_.contains(friendsNames, friendName)) {
+//             // add that customer's name to the customerNames list
+//             customerNames = customerNames.concat(customer.name);
+//         }
+//         // return the list of customers who have the given customer as their friend
+//         return customerNames;
+//     }, []);
 };
 
 //*Objective**: Find the three most common tags among all customers' associated tags

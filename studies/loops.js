@@ -1,4 +1,4 @@
-/*
+/**
  * LOOPS:
  *
  * 0. Loops allow us to execute a statement or block of code repeatedly, without
@@ -18,6 +18,14 @@
  *
  * 3. For In Loops - For in loops are frequently used to iterate over objects.
  * for (let key in object) is used to iterate through keys in an object.
+ * The standard syntax for a for in loop is:
+ * 
+ * for (variable in object) {run this code block on each variable)
+ * 
+ * - for is the keyword indicating a loop
+ * - variable can be any property/key of the object
+ * - in is the keyword indicating we will be iterating through an object's keys
+ * - and object is the object whose properties/keys we are iterating over
  *
  * 4. With all loops, it's important to make sure the condition will eventually
  * turn to false. If the condition never evaluates to false, the loop can run

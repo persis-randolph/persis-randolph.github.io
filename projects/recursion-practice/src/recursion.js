@@ -27,20 +27,20 @@ var sum = function(array) {
   return array[0] + sum(array.slice(1));
 };
 
-// 3. Sum all numbers in an array containing nested arrays.
-// Example: arraySum([1,[2,3],[[4]],5]); // 15
-var arraySum = function(array) {
-  // unnesting array function
-  function flatten(array) {
-	  return array.reduce((acc, curVal) => acc.concat(Array.isArray(curVal) ? flatten(curVal) : curVal), []);
-  }
-  // declare new array using flatten function
-  let flatArray = flatten(array);
-  // base case: stop when on the last value of the array, return that value
-  if (flatArray.length === 1) return flatArray[0];
-  // recursion case: add the curVal + recursion on rest of the values
-  return flatArray[0] + arraySum(flatArray.slice(1));
-};
+// // 3. Sum all numbers in an array containing nested arrays.
+// // Example: arraySum([1,[2,3],[[4]],5]); // 15
+// var arraySum = function(array) {
+//   // flatten array function
+//   function flatten(array) {
+// 	  return array.reduce((acc, curVal) => acc.concat(Array.isArray(curVal) ? flatten(curVal) : curVal), []);
+//   }
+//   // declare new array using flatten function
+//   let flatArray = flatten(array);
+//   // base case: stop when on the last value of the array, return that value
+//   if (flatArray.length === 1) return flatArray[0];
+//   // recursion case: add the curVal + recursion on rest of the values
+//   return flatArray[0] + arraySum(flatArray.slice(1));
+// };
 
 // 4. Check if a number is even.
 var isEven = function(n) {
@@ -61,15 +61,52 @@ var isEven = function(n) {
 // sumBelow(10); // 45
 // sumBelow(7); // 21
 var sumBelow = function(n) {
-  if (n <= 1 && n > 0) return 0; 
-  let curVal = n - 1;
-  if (curVal === 0) return 0;
-  return curVal + sumBelow(curVal - 1);
+  // if the number is 0, return 0
+  if (n === 0) return 0;
+  // if number is positive
+  if (n > 0) {
+    // return that number - 1 + recursive values of calling the number - 1
+    return (n - 1) + sumBelow(n - 1);
+  }
+  // if the number is negative
+  if (n < 0) {
+    // return that number + 1 + recursive values of calling the number + 1
+    return (n + 1) + sumBelow(n + 1);
+  }
 };
 
 // 6. Get the integers in range (x, y).
 // Example:  range(2, 9);  // [3, 4, 5, 6, 7, 8]
-var range = function(x, y) {
+var range = function(x, y, rangeArr = []) {
+  // if first input is less than second input
+  if (x < y) {
+    // and if x is not equal to second num - 1
+    if (x !== y - 1) {
+      // reassign x as x + 1
+      x = x + 1;
+      // add incremented value of x to the return array
+      rangeArr.push(x);
+      // recurse over the new x, original y, and the range array
+      range(x, y, rangeArr);
+    }
+    return rangeArr; // return the range array
+  // if first input is more than second input
+  } else if (x > y) {
+    // if x is not equal to second num + 1
+    if (x !== y + 1) {
+      // reassign x as x - 1
+      x = x - 1;
+      // push new x onto the range array
+      rangeArr.push(x);
+      // recurse over the new x, orig y, and the range array
+      range(x, y, rangeArr);
+    }
+    // return range array if x > y is complete
+    return rangeArr;
+  } else {
+    // if x and y are equal, or not given, return default empty array
+    return rangeArr;
+  }
 };
 
 // 7. Compute the exponent of a number.
@@ -78,6 +115,15 @@ var range = function(x, y) {
 // Example:  exponent(4,3);  // 64
 // https://www.khanacademy.org/computing/computer-science/algorithms/recursive-algorithms/a/computing-powers-of-a-number
 var exponent = function(base, exp) {
+  // base case: any base to the power of 0 will always equal 1
+  if (exp === 0) {
+    return 1;
+  // if exponent is negative
+  } else if (exp < 0) {
+    return (parseFloat((1 / base * exponent(base, exp + 1)).toFixed(5))); // this returns a string so now i have to make it a number again
+  }
+  // recursive case - we're going to want to lower the exponent each time and multiply base times itself again
+  return base * exponent(base, exp - 1);
 };
 
 // 8. Determine if a number is a power of two.

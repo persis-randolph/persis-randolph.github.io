@@ -1,4 +1,4 @@
-/*
+/**
  * CONTROL FLOW:
  *
  * 0. Code generally executes from top to bottom, except in the case of
@@ -17,7 +17,16 @@
  *
  * 2. Else if statements allow us to test multiple conditions, taking action
  * from top to bottom only if a statement evaluates to truthy for each code
- * block.
+ * block. If an else if statement has a conditional that resolves to true, the
+ * code block will be run, and the others will be skipped. If if resolves to
+ * false, that code block will be skipped, and will move on to the next else if
+ * or else statement. We can have as many else if statements as we want,
+ * however, only one can be run.
+ * 
+ * In comparison to if you were to use multiple if statements -- each one could
+ * have it's own code block that would run depending on the conditional being
+ * true, but if they were chained as else ifs only the first one that was true
+ * would run.
  *
  * 3. Else statements allow us to perform an action if none of the above if, or
  * else if, statments evaluate to truthy. This is kind of similar to a default
@@ -42,7 +51,13 @@ if (num > 5) {
  console.log("Num is greater than 5"); // skipped since the condition is falsy
 } else if (num <= 5) {
  console.log("Num is 5 or less"); // prints => Num is 5 or less
+} else if (num === 5) {
+ console.log("Num is equal to 5"); /* with else if statements, even though this
+ conditional is true, since a previous code block already returned true, it will
+ not be run. */
 }
+
+
  
 // 3. Else //
 let value = false;
